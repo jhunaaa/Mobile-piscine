@@ -29,20 +29,91 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _searchController = TextEditingController();
+
+  String place = "";
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildTabContent(String tabName) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          tabName,
+          style: const TextStyle(fontSize: 20),
+        ),
+        Text(
+          place,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor:
+          Theme.of(context).colorScheme.inversePrimary,
+          title: TextField(
+            controller: _searchController,
+            onSubmitted: (value) {
+              setState(() {
+                place = value;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Search location',
+              prefixIcon: const Icon(Icons.person_search),
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.location_on),
+                onPressed: () {
+                  setState(() {
+                    place = "Geolocation";
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+
+        body: TabBarView(
           children: [
-            const Text('You have pushed the button this many times:'),
+            _buildTabContent("Currently"),
+            _buildTabContent("Today"),
+            _buildTabContent("Weekly"),
           ],
+        ),
+
+        bottomNavigationBar: BottomAppBar(
+          child: TabBar(
+            labelColor: Colors.blue,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Colors.blue,
+            tabs: const [
+              Tab(
+                icon: Icon(Icons.wb_sunny),
+                text: "Currently",
+              ),
+              Tab(
+                icon: Icon(Icons.today),
+                text: "Today",
+              ),
+              Tab(
+                icon: Icon(Icons.calendar_view_week),
+                text: "Weekly",
+              ),
+            ],
+          ),
         ),
       ),
     );

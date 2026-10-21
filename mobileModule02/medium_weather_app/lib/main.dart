@@ -288,7 +288,6 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 20),
           _buildLocationHeader(),
           const SizedBox(height: 20),
-          Icon(info.icon, size: 80, color: Colors.blue),
           const SizedBox(height: 10),
           Text(
             '${current.temperature.toStringAsFixed(1)} $_degreeSymbol C',
@@ -302,7 +301,6 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.air, color: Colors.blue),
               const SizedBox(width: 8),
               Text(
                 'Wind Speed: ${current.windSpeed.toStringAsFixed(1)} km/h',

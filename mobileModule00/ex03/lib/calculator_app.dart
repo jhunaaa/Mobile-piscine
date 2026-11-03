@@ -34,6 +34,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  Expression? tryParseExpression(String expression) {
+    try {
+      return GrammarParser().parse(expression);
+    } catch (_) {
+      return null;
+    }
+  }
+
   Widget buildButton(String value) {
     return TextButton(
       onPressed: () {
@@ -44,14 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
             }
             final expression = input.replaceAll('x', '*');
 
-            final parsed = GrammarParser().parse(expression);
-            final value = RealEvaluator().evaluate(parsed);
+            final parsed = tryParseExpression(expression);
 
-            result = value.toString();
+            if (parsed != null) {
+              final value = RealEvaluator().evaluate(parsed);
+              result = value.toString();
+            } else {
+              result = "Not a valid expression";
+            }
+
             input = '';
           }
-          else if (value == "C" && input.isNotEmpty) {
-            input = input.substring(0, input.length - 1);
+          else if (value == "C") {
+            if (input.isNotEmpty) {
+              input = input.substring(0, input.length - 1);
+            }
           }
           else if (value == "AC") {
             input = '';
@@ -76,27 +91,25 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            Row(
-              children: [
-                Spacer(),
-                Text(
-                  input.isEmpty ? '0' : input,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                input.isEmpty ? '0' : input,
+                textAlign: TextAlign.right,
+                softWrap: true,
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
-            Row(
-              children: [
-                Spacer(),
-                Text(
-                  result,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                result,
+                textAlign: TextAlign.right,
+                softWrap: true,
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
             const Spacer(),
             Row(

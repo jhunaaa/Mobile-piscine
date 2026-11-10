@@ -72,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
             input = '';
           }
           else {
-            input += value;
+            if (input.length < 28) {
+              input += value;
+            }
           }
         });
       },

@@ -33,12 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String place = "";
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   Widget _buildTabContent(String tabName) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

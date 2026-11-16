@@ -106,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     _debounceTimer = Timer(const Duration(milliseconds: 300), () async {
-      final results = await _weatherService.searchCities(query);
+      final cities = await _weatherService.searchCities(query);
+      final results = cities.take(5).toList();
       if (mounted) {
         setState(() {
           _suggestions = results;
@@ -245,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
               [_selectedCity!.region, _selectedCity!.country]
                   .where((s) => s.isNotEmpty)
                   .join(', '),
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
         ],
       ),
@@ -272,7 +273,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return const Center(
         child: Text(
           'Search for a city or use GPS location',
-          style: TextStyle(fontSize: 18, color: Colors.grey),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       );
     }
@@ -296,7 +297,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Text(
             info.description,
-            style: const TextStyle(fontSize: 22, color: Colors.grey),
+            style: const TextStyle(fontSize: 22, color: Colors.white),
           ),
           const SizedBox(height: 20),
           Row(
@@ -336,7 +337,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return const Center(
         child: Text(
           'Search for a city or use GPS location',
-          style: TextStyle(fontSize: 18, color: Colors.grey),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       );
     }
@@ -403,7 +404,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return const Center(
         child: Text(
           'Search for a city or use GPS location',
-          style: TextStyle(fontSize: 18, color: Colors.grey),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       );
     }
@@ -456,7 +457,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onChanged: _onSearchChanged,
             onSubmitted: _onSearchSubmitted,
             decoration: InputDecoration(
-              hintText: 'Search city, country...',
+              hintText: 'Search location',
               prefixIcon: const Icon(Icons.search),
               border: InputBorder.none,
               suffixIcon: IconButton(
@@ -468,6 +469,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Stack(
           children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/background.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             TabBarView(
               children: [
                 _buildCurrentlyTab(),

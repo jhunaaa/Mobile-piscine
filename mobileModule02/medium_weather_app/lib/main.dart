@@ -291,11 +291,9 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 10),
           Text(
             '${current.temperature.toStringAsFixed(1)} $_degreeSymbol C',
-            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
           Text(
             info.description,
-            style: const TextStyle(fontSize: 22, color: Colors.grey),
           ),
           const SizedBox(height: 20),
           Row(
@@ -304,7 +302,6 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(width: 8),
               Text(
                 'Wind Speed: ${current.windSpeed.toStringAsFixed(1)} km/h',
-                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),
@@ -355,7 +352,6 @@ class _MyHomePageState extends State<MyHomePage> {
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: ListTile(
-                  leading: Icon(info.icon, color: Colors.blue),
                   title: Text(_formatHour(item.time)),
                   subtitle: Text(info.description),
                   trailing: Column(
@@ -364,11 +360,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Text(
                         '$tempStr $_degreeSymbol C',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '$windStr km/h',
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -422,15 +416,12 @@ class _MyHomePageState extends State<MyHomePage> {
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: ListTile(
-                  leading: Icon(info.icon, color: Colors.blue, size: 36),
                   title: Text(
-                    _formatDate(item.date),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    item.date,
                   ),
                   subtitle: Text(info.description),
                   trailing: Text(
                     '$minTemp$_degreeSymbol C - $maxTemp$_degreeSymbol C',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               );
@@ -501,7 +492,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           dense: true,
                           title: Text(
                             city.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: locationSubtitle.isNotEmpty
                               ? Text(locationSubtitle)
